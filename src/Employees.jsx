@@ -98,6 +98,22 @@ function handleTeamSelectionChange(event)
   setTeam(event.target.value);
 }
 
+  function handleEmployeeCardClick(event){
+    console.log(event.target.value);
+    //Call map function on employees array to return a transformed array.
+    //Where relevant employee card is click on the ui within the array is changed  
+    //Ex. if team A is selected by dropdown, and the selection of the employee card will change, whereby their team name property will be set to the team selected in the dropdown list. If an employee is already a member of the selected team the card representing employee will have a box shadow around it. When a card with boxshadow is clciked the employee card property will be set to empty string, and box shadow removed from the ui. 
+    //The ternary operator checks to see if employee on card, matches current evaluated item in employees array. If a match is found, the evaluated employee items team name property is changed accordingly.
+
+    //Basically if a when a card is clicked if the employee the card is already a member of the team, this functionality causes employee to be removed from taht team, if employee is not a member of that team, they are added to that team. Once all employees are tranveresed, the newly transformed array is assigned to transformedEmployees.
+    
+      const transformedEmployees = employees.map((employee) => employee.id === parseInt(event.currentTarget.id)
+                                                ?(employee.TeamName ==selectedTeam)?{...employees,                                                             teamName:''}:{...employees, teamName: selectedTeam}
+                                                :employee);
+  setEmployees(transformedEmployees)
+    
+  }
+
   
   return (
      <main className = "container">
@@ -116,7 +132,7 @@ function handleTeamSelectionChange(event)
           <div className="card-collection">
        {
       employees.map((employee) => (
-        <div id={employee.id} className = "card m-2" style={{cursor: "pointer" }}>
+        <div id={employee.id} className = "card m-2" style={{cursor: "pointer" }} onClick ={handleEmployeeCardClick}>
         <p>{employee.fullName}</p>
         
           {(employee.gender === 'male')?<img src={maleProfile} className="card-img-top"/>
