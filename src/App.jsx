@@ -9,9 +9,8 @@ function App() {
   return (
     <main>
       <Header/>
-      <Content/>
+       <Employees/>
       <Footer/>
-      <Employees/>
     </main>
   );
 }
